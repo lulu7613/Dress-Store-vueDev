@@ -4,6 +4,6 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  HTTP_PATH: 'https://vue-course-api.hexschool.io/',
-  HTTP_ADMIN: 'dress_store'
+  API_PATH: '"https://vue-course-api.hexschool.io"',
+  API_ADMIN: '"dress_store"'
 })
