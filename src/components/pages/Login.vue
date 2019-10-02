@@ -72,7 +72,7 @@ export default {
           vm.$http.post(api, vm.user).then((response) => {
             console.log('login()', response.data)
             if (response.data.success) {
-
+              vm.$router.push('/admin')
             } else {
               vm.$bus.$emit('messsage:push', response.data.message, 'danger')
             }
