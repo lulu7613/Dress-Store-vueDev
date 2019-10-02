@@ -7,6 +7,7 @@ import Login from '@/components/pages/Login'
 
 // 管理者頁面
 import DashboardRoot from '@/components/DashboardRoot'
+import Products from '@/components/pages/Products'
 
 Vue.use(Router)
 
@@ -29,7 +30,14 @@ export default new Router({
     { // 管理者頁面
       path: '/admin',
       name: 'DashboardRoot',
-      component: DashboardRoot
+      component: DashboardRoot,
+      children: [
+        {
+          path: 'products',
+          name: 'Products',
+          component: Products
+        }
+      ]
     }
   ]
 })

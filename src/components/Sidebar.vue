@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="col-md-2 sidebar">
+    <nav class="nav">
       <div class="sidebar-sticky">
         <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
@@ -47,6 +47,7 @@ export default {
 .sidebar {
   background-color: #f8f9fa !important;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
 .sidebar-sticky {
