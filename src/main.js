@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import 'bootstrap'
 
+import currency from './filters/currency' // 千分位與$設定 filters.js
+
+Vue.filter('currency', currency) // 啟用 filters.js
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
