@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="footer-text col-9 text-right align-self-center">
-          <a href="#">管理者模式</a>
+          <router-link to="login">管理者模式</router-link>
           <br />蔡昀芷製作 / 圖片素材均來自網路
         </div>
       </div>
