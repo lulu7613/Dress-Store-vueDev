@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <loading :active.sync="isLoading"></loading>
+
     <div class="row my-3">
       <div class="col-md-6">
         <!-- <Page @postPage="getProducts" :pages="pagination" /> -->
@@ -94,11 +96,7 @@
                     @change="uploadFile()"
                   />
                 </div>
-                <img
-                  class="img-fluid"
-                  alt
-                  :src="tempProduct.imageUrl"
-                />
+                <img class="img-fluid" alt :src="tempProduct.imageUrl" />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -246,6 +244,8 @@ export default {
       products: [],
       tempProduct: {},
       modalType: 'new', // 判別開啟的 Modal 是新建、編輯、刪除
+
+      isLoading: false, // vue-loading-overlay Loading 效果
       isfilterLoading: false // font-awsome Loading 效果
     }
   },
@@ -254,10 +254,12 @@ export default {
     // 取得商品列表 /api/:api_path/admin/products?page=:page
     getProducts (page = 1) {
       const vm = this
+      vm.isLoading = true
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/products?page=${page}`
       vm.$http.get(api).then((response) => {
         console.log('getProducts()', response.data)
         vm.products = response.data.products
+        vm.isLoading = false
       })
     },
 
