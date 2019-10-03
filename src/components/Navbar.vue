@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-md navbar-dark">
         <router-link class="navbar-brand font-weight-bolder logo-name" to="/">翠絲服飾</router-link>
         <button
-          class="navbar-toggler bg-info"
+          class="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"

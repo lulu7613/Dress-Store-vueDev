@@ -13,10 +13,10 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '*',
-      redirect: '/'
-    },
+    // {
+    //   path: '*',
+    //   redirect: '/'
+    // },
     { // 客戶端頁面
       path: '/',
       name: 'Dashboard',

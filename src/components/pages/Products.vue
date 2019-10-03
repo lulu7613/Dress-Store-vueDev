@@ -4,7 +4,7 @@
 
     <div class="row my-3">
       <div class="col-md-6">
-        <!-- <Page @postPage="getProducts" :pages="pagination" /> -->
+        <Page :propsPage="pagination" @emitPage="getProducts"/>
       </div>
       <div class="col-md-6 text-right">
         <!-- 製作 model 效果 -->
@@ -15,7 +15,8 @@
     <!-- 商品列表 -->
     <table class="table table-hover">
       <thead>
-        <th width="120">分類</th>
+        <th width="55">編號</th>
+        <th width="100">分類</th>
         <th>產品名稱</th>
         <th width="120" class="text-right">原價</th>
         <th width="120" class="text-right">售價</th>
@@ -23,7 +24,8 @@
         <th width="120" class="text-center">編輯</th>
       </thead>
       <tbody>
-        <tr v-for="item in products" :key="item.id">
+        <tr v-for="(item, index) in products" :key="item.id">
+          <td>{{ index +1 }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
           <td class="text-right">{{ item.origin_price | currency }}</td>
@@ -237,12 +239,18 @@
 
 <script>
 import $ from 'jquery'
+import Page from '../Pagination'
 
 export default {
+  components: {
+    Page
+  },
+
   data () {
     return {
       products: [],
       tempProduct: {},
+      pagination: {},
       modalType: 'new', // 判別開啟的 Modal 是新建、編輯、刪除
 
       isLoading: false, // vue-loading-overlay Loading 效果
@@ -259,6 +267,7 @@ export default {
       vm.$http.get(api).then((response) => {
         console.log('getProducts()', response.data)
         vm.products = response.data.products
+        vm.pagination = response.data.pagination
         vm.isLoading = false
       })
     },
