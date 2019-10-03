@@ -2,7 +2,7 @@
   <div>
     <header class="container-fluid">
       <nav class="navbar navbar-expand-md navbar-dark">
-        <router-link class="navbar-brand font-weight-bolder logo-name" to="/">翠絲服飾</router-link>
+        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products" style="border:0">翠絲服飾</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -19,10 +19,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#">
-                  主題商品
-                  <span class="sr-only">(current)</span>
-                </a>
+                <router-link class="nav-link font-weight-bold" to="/main_products">主題商品</router-link>
               </li>
               <li class="nav-item active">
                 <a class="nav-link font-weight-bold" href="#">

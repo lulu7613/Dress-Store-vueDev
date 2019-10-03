@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Login from '@/components/pages/Login'
+
 // 客戶端頁面
 import Dashboard from '@/components/Dashboard'
-import Login from '@/components/pages/Login'
+import CustomerProducts from '@/components/pages/CustomerProducts'
 
 // 管理者頁面
 import DashboardRoot from '@/components/DashboardRoot'
@@ -13,14 +15,21 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '*',
-    //   redirect: '/'
-    // },
+    {
+      path: '*',
+      redirect: 'customer_products'
+    },
     { // 客戶端頁面
       path: '/',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      children: [
+        {
+          path: 'customer_products',
+          name: 'CustomerProducts',
+          component: CustomerProducts
+        }
+      ]
     },
     {
       path: '/login',

@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Alert/>
-    <Navbar/>
-    <Banner/>
-    未完成: 麵包屑分頁元件、商品列表卡片元件、分頁元件
-    <Footer/>
+    <loading :active.sync="isLoading"></loading>
+    <Alert />
+    <Navbar />
+    <Banner />
+    <router-view :propsData="data"></router-view>
+    <Footer />
   </div>
 </template>
 
@@ -20,6 +21,32 @@ export default {
     Banner,
     Footer,
     Alert
+  },
+
+  data () {
+    return {
+      data: [],
+
+      isLoading: false
+    }
+  },
+
+  methods: {
+    // 取得商品列表 /api/:api_path/products?page=:page
+    getProducts (page = 1) {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
+      vm.$http.get(api).then((response) => {
+        console.log('客戶端 getProducts()', response.data)
+        vm.data = response.data
+        vm.isLoading = false
+      })
+    }
+  },
+
+  created () {
+    this.getProducts()
   }
 }
 </script>
