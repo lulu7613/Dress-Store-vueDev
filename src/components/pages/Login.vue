@@ -80,8 +80,19 @@ export default {
         }
       })
     }
-  }
+  },
 
+  created () {
+    // 檢查用戶是否仍持續登入 /api/user/check
+    const vm = this
+    const api = `${process.env.API_PATH}/api/user/check`
+    vm.$http.post(api).then((response) => {
+      console.log('Login 檢查登入狀態', response.data)
+      if (response.data.success) {
+        vm.$router.push('/admin/products')
+      }
+    })
+  }
 }
 </script>
 

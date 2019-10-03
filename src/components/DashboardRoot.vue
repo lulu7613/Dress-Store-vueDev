@@ -24,7 +24,7 @@
               </router-link>
             </li>
           </ul>
-          <button class="btn btn-outline-light text-white btn-sm" type="button">
+          <button class="btn btn-outline-light text-white btn-sm" type="button" @click="signout()">
             <i class="fas fa-user-alt"></i>
             登出
           </button>
@@ -43,7 +43,22 @@ export default {
   components: {
     Navbar,
     Alert
+  },
+
+  methods: {
+    // 登出帳號
+    signout () {
+      const vm = this
+      const api = `${process.env.API_PATH}/logout`
+      this.$http.post(api).then((response) => {
+        console.log('登出', response.data)
+        if (response.data.success) {
+          vm.$router.push('/')
+        }
+      })
+    }
   }
+
 }
 </script>
 
