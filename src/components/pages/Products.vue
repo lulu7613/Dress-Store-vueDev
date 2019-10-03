@@ -6,10 +6,11 @@
       </div>
       <div class="col-md-6 text-right">
         <!-- 製作 model 效果 -->
-        <button class="btn btn-primary">建立新的產品</button>
+        <button class="btn btn-info" @click="openModal('new')">建立新的產品</button>
       </div>
     </div>
 
+    <!-- 商品列表 -->
     <table class="table table-hover">
       <thead>
         <th width="120">分類</th>
@@ -33,7 +34,7 @@
             <div class="btn-group" role="group" aria-label="Basic example">
               <button
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-info btn-sm"
                 @click="openModal('edit', item)"
               >編輯</button>
               <button
@@ -58,11 +59,12 @@
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
-          <div class="modal-header bg-dark text-white">
+          <div class="modal-header bg-info text-white">
             <h5 class="modal-title" id="exampleModalLabel">
-              <span>新增產品</span>
+              <span v-if="modalType === 'new'">新增產品</span>
+              <span v-else>修改商品</span>
             </h5>
-            <button type="button" class="close" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -95,7 +97,6 @@
                     id="customFile"
                     class="form-control"
                     ref="files"
-                    @change="uploadFile()"
                   />
                 </div>
                 <img
@@ -202,8 +203,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" @click="closeModal()">取消</button>
-            <button type="button" class="btn btn-primary" @click="updateProduct()">確認</button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-info" @click="updateProduct()">確認</button>
           </div>
         </div>
       </div>
@@ -234,7 +235,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger">確認刪除</button>
+            <button type="button" class="btn btn-danger" @click="updateProduct()">確認刪除</button>
           </div>
         </div>
       </div>
@@ -243,11 +244,15 @@
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
   data () {
     return {
       products: [],
-      tempProduct: {}
+      tempProduct: {},
+
+      modalType: 'new' // 判別開啟的 Modal 是新建、編輯、刪除
     }
   },
 
@@ -258,8 +263,53 @@ export default {
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/products?page=${page}`
       vm.$http.get(api).then((response) => {
         console.log('getProducts()', response.data)
+        vm.products = response.data.products
+      })
+    },
+
+    // 開啟 Modal (新建或編輯)
+    openModal (modalType, item) {
+      if (modalType === 'new') {
+        this.modalType = 'new'
+        this.tempProduct = {}
+        $('#productModal').modal('show')
+      } else if (modalType === 'edit') {
+        this.modalType = 'edit'
+        this.tempProduct = item
+        $('#productModal').modal('show')
+      } else {
+        this.modalType = 'delete'
+        this.tempProduct = item
+        $('#delProductModal').modal('show')
+      }
+    },
+
+    // 更新產品 (按下確認，判斷是新建、編輯、刪除)
+    updateProduct () {
+      const vm = this
+      let api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/product`
+      let httpMethod = 'post'
+      if (this.modalType === 'edit') {
+        api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/product/${vm.tempProduct.id}`
+        httpMethod = 'put'
+      } else if (this.modalType === 'delete') {
+        api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/product/${vm.tempProduct.id}`
+        httpMethod = 'delete'
+      }
+      vm.$http[httpMethod](api, {data: vm.tempProduct}).then((response) => {
+        console.log(vm.modalType, response.data)
+        if (response.data.success) {
+          if (vm.modalType === 'delete') {
+            $('#delProductModal').modal('hide')
+          } else {
+            $('#productModal').modal('hide')
+          }
+          vm.getProducts()
+          vm.$bus.$emit('messsage:push', response.data.message, 'success')
+        }
       })
     }
+
   },
 
   created () {

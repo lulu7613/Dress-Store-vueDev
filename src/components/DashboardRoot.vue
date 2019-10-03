@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Alert/>
     <Navbar>
       <slot>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,10 +37,12 @@
 
 <script>
 import Navbar from './Navbar'
+import Alert from './AlterMessage'
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Alert
   }
 }
 </script>

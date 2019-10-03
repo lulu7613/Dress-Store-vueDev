@@ -35,7 +35,8 @@ export default new Router({
         {
           path: 'products',
           name: 'Products',
-          component: Products
+          component: Products,
+          meta: { requiresAuth: true } // 導航守衛: 到達這頁面需要授權
         }
       ]
     }
