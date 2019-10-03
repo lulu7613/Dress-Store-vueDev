@@ -84,23 +84,17 @@
                 <div class="form-group">
                   <label for="customFile">
                     或 上傳圖片
-                    <!-- font-awesome 讀取畫面圖片 -->
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" v-if="isfilterLoading"></i>
                   </label>
-                  <!--
-                    上傳圖片
-                    使用 formData 上傳圖片 API (與一般 api 上傳方式不同))
-                    使用 @change
-                  -->
                   <input
                     type="file"
                     id="customFile"
                     class="form-control"
                     ref="files"
+                    @change="uploadFile()"
                   />
                 </div>
                 <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                   class="img-fluid"
                   alt
                   :src="tempProduct.imageUrl"
@@ -251,8 +245,8 @@ export default {
     return {
       products: [],
       tempProduct: {},
-
-      modalType: 'new' // 判別開啟的 Modal 是新建、編輯、刪除
+      modalType: 'new', // 判別開啟的 Modal 是新建、編輯、刪除
+      isfilterLoading: false // font-awsome Loading 效果
     }
   },
 
@@ -306,6 +300,32 @@ export default {
           }
           vm.getProducts()
           vm.$bus.$emit('messsage:push', response.data.message, 'success')
+        } else {
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+        }
+      })
+    },
+
+    // 上傳圖片 使用 formdata
+    uploadFile () {
+      const vm = this
+      vm.isfilterLoading = true
+      const uploadFile = vm.$refs.files.files[0]
+      const formData = new FormData()
+      formData.append('file-to-upload', uploadFile)
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/upload`
+      vm.$http.post(api, formData, {
+        header: {
+          type: 'multipart/form-data'
+        }
+      }).then((response) => {
+        console.log('uploadFile', response.data)
+        if (response.data.success) {
+          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
+          vm.isfilterLoading = false
+        } else {
+          this.$bus.$emit('messsage:push', '上傳失敗', 'danger')
+          vm.isfilterLoading = false
         }
       })
     }
