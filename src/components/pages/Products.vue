@@ -8,7 +8,7 @@
       </div>
       <div class="col-md-6 text-right">
         <!-- 製作 model 效果 -->
-        <button class="btn btn-info" @click="openModal('new')">建立新的產品</button>
+        <button class="btn btn-primary" @click="openModal('new')">建立新的產品</button>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
             <div class="btn-group" role="group" aria-label="Basic example">
               <button
                 type="button"
-                class="btn btn-outline-info btn-sm"
+                class="btn btn-outline-primary btn-sm"
                 @click="openModal('edit', item)"
               >編輯</button>
               <button
@@ -63,7 +63,7 @@
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
-          <div class="modal-header bg-info text-white">
+          <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="exampleModalLabel">
               <span v-if="modalType === 'new'">新增產品</span>
               <span v-else>修改商品</span>
@@ -198,7 +198,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-info" @click="updateProduct()">確認</button>
+            <button type="button" class="btn btn-primary" @click="updateProduct()">確認</button>
           </div>
         </div>
       </div>

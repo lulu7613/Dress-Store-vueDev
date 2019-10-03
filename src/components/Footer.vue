@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="container-fluid fixed-bottom bg-light">
+    <footer class="container-fluid fixed-bottom" style="background-color: #f8f9fa">
       <div class="row">
         <div class="col-3">
           <button
@@ -12,7 +12,6 @@
           >
             <i class="fas fa-shopping-cart text-dark fa-2x"></i>
             <span class="badge badge-pill badge-danger bage-num">0</span>
-            <span class="bage-text">購物車</span>
           </button>
 
           <!-- 購物車 Dropdown -->
@@ -39,7 +38,7 @@
                   </tr>
                 </tfoot>
               </table>
-              <button type="button" class="btn btn-info btn-block">結帳去</button>
+              <button type="button" class="btn btn-primary btn-block">結帳去</button>
             </div>
           </div>
         </div>

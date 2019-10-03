@@ -18,23 +18,11 @@
         <slot>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item dropdown active">
-                <a
-                  class="font-weight-bold nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >主題館</a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <a class="dropdown-item" href="#">全部</a>
-                  <a class="dropdown-item" href="#">文字</a>
-                  <a class="dropdown-item" href="#">圖騰</a>
-                  <a class="dropdown-item" href="#">搞怪</a>
-                  <a class="dropdown-item" href="#">人物</a>
-                </div>
+              <li class="nav-item active">
+                <a class="nav-link font-weight-bold" href="#">
+                  主題商品
+                  <span class="sr-only">(current)</span>
+                </a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link font-weight-bold" href="#">
@@ -44,7 +32,7 @@
               </li>
               <li class="nav-item active">
                 <a class="nav-link font-weight-bold" href="#">
-                  清倉特賣
+                  清倉55折
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
