@@ -90,6 +90,8 @@ export default {
       console.log('Login 檢查登入狀態', response.data)
       if (response.data.success) {
         vm.$router.push('/admin/products')
+      } else {
+        this.$bus.$emit('messsage:push', '已登出帳號，請重新登入', 'danger') // 登出狀態訊息
       }
     })
   }

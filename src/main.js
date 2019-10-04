@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
       if (response.data.success) {
         next()
       } else {
-        console.log('登入失敗')
+        next('/login') // 留在 login 頁面
       }
     })
   } else {

@@ -1,0 +1,81 @@
+<template>
+  <div class="row border-bottom" id="product-main">
+    <div class="col-lg-6 text-center product-img mb-5">
+      <img :src="propsData.imageUrl" alt="1101al.jpg" class="img-fluid" />
+    </div>
+    <div class="col-lg-5 mb-5" id="product-content-main">
+      <div class="d-flex align-items-baseline mb-1">
+        <h1 class="h3 font-weight-bolder mr-auto">{{ propsData.title }}</h1>
+        <span
+          class="badge badge-secondary float-right ml-2"
+          v-if="propsData.category === '主題商品'"
+        >{{ propsData.category }}</span>
+        <span
+          class="badge badge-warning float-right ml-2"
+          v-if="propsData.category === '人氣精選'"
+        >{{ propsData.category }}</span>
+        <span
+          class="badge badge-success float-right ml-2"
+          v-if="propsData.category === '清倉55折'"
+        >{{ propsData.category }}</span>
+      </div>
+      <p>{{propsData.content}}</p>
+      <div class="d-flex justify-content-end align-items-end">
+        <del>
+          <div class="h5" v-if="propsData.price">原價 NT${{propsData.origin_price}}</div>
+        </del>
+        <div class="h3 ml-auto text-danger" v-if="propsData.price">
+          <small class="font-weight-bold">特價 NT$</small>
+          <strong>{{ propsData.price }}</strong>
+        </div>
+        <div class="h3 ml-auto text-danger" v-if="!propsData.price">
+          <small class="font-weight-bold">售價 $NT</small>
+          <strong>{{propsData.origin_price}}</strong>
+        </div>
+      </div>
+
+      <hr />
+
+      <span class="text-muted mr-1">尺寸 :</span>
+      <div class="btn-group btn-group-toggle">
+        <label
+          class="btn btn-outline-secondary"
+          :class="{'active': propsData.description === 'S'}"
+        >
+          <input type="radio" name="buy-size" value="S" v-model="propsData.description" /> S
+        </label>
+        <label
+          class="btn btn-outline-secondary"
+          :class="{'active': propsData.description === 'M'}"
+        >
+          <input type="radio" name="buy-size" value="M" v-model="propsData.description" /> M
+        </label>
+        <label
+          class="btn btn-outline-secondary"
+          :class="{'active': propsData.description === 'L'}"
+        >
+          <input type="radio" name="buy-size" value="L" v-model="propsData.description" /> L
+        </label>
+        <label
+          class="btn btn-outline-secondary"
+          :class="{'active': propsData.description === 'XL'}"
+        >
+          <input type="radio" name="buy-size" value="XL" v-model="propsData.description" /> XL
+        </label>
+      </div>
+
+      <div class="input-group mt-3">
+        <select class="form-control mr-3" v-model="propsData.num">
+          <option :value="num" v-for="num in 10" :key="num">選購 {{num}} {{propsData.unit}}</option>
+        </select>
+        <button class="btn btn-primary">加入購物車</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['propsData']
+}
+</script>

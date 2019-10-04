@@ -31,7 +31,7 @@ export default new Router({
           component: CustomerProducts
         },
         {
-          path: 'customer_product', // 單一商品細節
+          path: 'customer_product/:id', // 單一商品細節
           name: 'CustomerProduct',
           component: CustomerProduct
         }

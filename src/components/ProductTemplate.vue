@@ -1,6 +1,6 @@
 <template>
   <div class="row pl-4">
-    <div class="col-12 col-md-6 col-lg-3 mb-5" v-for="item in propsData.products" :key="item.id">
+    <div class="col-12 col-md-6 col-lg-3 mb-5" v-for="item in propsData" :key="item.id">
       <div class="card">
         <img :src="item.imageUrl" class="card-img-top pt-3 px-3" :alt="item.title" />
         <div class="card-body">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="card-footer d-flex bg-white">
-          <button type="button" class="btn btn-light btn-sm">查看更多</button>
+          <button type="button" class="btn btn-light btn-sm" @click="goToProductPage(item.id)">查看更多</button>
           <button type="button" class="btn btn-primary btn-sm ml-auto">
             <i class="fas fa-spinner fa-spin"></i>
             加入購物車
@@ -45,6 +45,14 @@
 
 <script>
 export default {
-  props: ['propsData']
+  props: ['propsData'],
+
+  methods: {
+    // 點擊查看更多到商品細項元件 CustomerProduct/:id
+    goToProductPage (id) {
+      this.$router.push(`/customer_product/${id}`)
+      this.$emit('emit', id)
+    }
+  }
 }
 </script>

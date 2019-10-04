@@ -47,7 +47,6 @@ export default {
 
   created () {
     this.getProducts()
-    console.log(this.$route)
   }
 }
 </script>
