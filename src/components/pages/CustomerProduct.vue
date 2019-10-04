@@ -27,15 +27,9 @@ export default {
     }
   },
 
-  // watch: {
-  //   itemId (id) {
-  //     this.itemId = id
-  //   }
-  // },
-
   methods: {
     // 取得商品列表
-    getProducts (id) {
+    getProducts () {
       const vm = this
       vm.itemId = vm.$route.params.id
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
@@ -92,6 +86,5 @@ export default {
   updated () {
     window.scroll(0, 0)
   }
-
 }
 </script>
