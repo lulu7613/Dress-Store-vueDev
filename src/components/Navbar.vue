@@ -2,7 +2,7 @@
   <div>
     <header class="container-fluid">
       <nav class="navbar navbar-expand-md navbar-dark">
-        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products" style="border:0">翠絲服飾</router-link>
+        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products/all" style="border:0">翠絲服飾</router-link>
         <button
           class="navbar-toggler"
           type="button"

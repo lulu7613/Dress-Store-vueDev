@@ -18,7 +18,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: 'customer_products'
+      redirect: 'customer_products/all'
     },
     { // 客戶端頁面
       path: '/',
@@ -26,7 +26,7 @@ export default new Router({
       component: Dashboard,
       children: [
         {
-          path: 'customer_products', // 商品列表
+          path: 'customer_products/:category', // 商品列表
           name: 'CustomerProducts',
           component: CustomerProducts
         },

@@ -1,19 +1,25 @@
 <template>
-  <main class="container my-5 main">
-    <!-- product 主要商品展示 -->
-    <ProductDetailTemplate :propsData="tempProduct"/>
-    <!-- 同類型產品 -->
-    <h6 class="my-3 pl-4">其他同款商品</h6>
-    <ProductTemplate :propsData="sameCategoryProducts" @emit="changeProduct" />
-  </main>
+  <div>
+    <!-- 麵包屑分頁 -->
+    <Breadcrumb :propsData="tempProduct"/>
+    <main class="container my-5 main">
+      <!-- product 主要商品展示 -->
+      <ProductDetailTemplate :propsData="tempProduct" />
+      <!-- 同類型產品 -->
+      <h6 class="my-3 pl-4">其他同款商品</h6>
+      <ProductTemplate :propsData="sameCategoryProducts" @emit="changeProduct" />
+    </main>
+  </div>
 </template>
 
 <script>
+import Breadcrumb from '../Breadcrumb'
 import ProductTemplate from '../ProductTemplate'
 import ProductDetailTemplate from '../ProductDetalilTemplate'
 
 export default {
   components: {
+    Breadcrumb,
     ProductDetailTemplate,
     ProductTemplate
   },
