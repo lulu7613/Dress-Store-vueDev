@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <!-- 麵包屑分頁 -->
     <Breadcrumb :propsData="tempProduct"/>
     <main class="container my-5 main">
@@ -29,7 +30,9 @@ export default {
       itemId: '',
       products: [],
       sameCategoryProducts: [],
-      tempProduct: {}
+      tempProduct: {},
+
+      isLoading: false
     }
   },
 
@@ -37,6 +40,7 @@ export default {
     // 取得商品列表
     getProducts () {
       const vm = this
+      vm.isLoading = true
       vm.itemId = vm.$route.params.id
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
       vm.axios.get(api).then((response) => {
@@ -57,6 +61,7 @@ export default {
               vm.sameCategoryProducts.push(item)
             }
           })
+          vm.isLoading = false
         }
       })
     },
