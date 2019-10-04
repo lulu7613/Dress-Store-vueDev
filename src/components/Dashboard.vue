@@ -39,7 +39,7 @@ export default {
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
       vm.$http.get(api).then((response) => {
         console.log('客戶端 getProducts()', response.data)
-        vm.data = response.data
+        vm.data = response.data.products
         vm.isLoading = false
       })
     }
