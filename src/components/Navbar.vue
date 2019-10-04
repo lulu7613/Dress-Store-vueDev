@@ -2,7 +2,8 @@
   <div>
     <header class="container-fluid">
       <nav class="navbar navbar-expand-md navbar-dark">
-        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products/all" style="border:0">翠絲服飾</router-link>
+        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products" style="border:0">翠絲服飾</router-link>
+        <!-- <a class="navbar-brand font-weight-bolder logo-name" href="#" @click.prevent="change('all')">翠絲服飾</a> -->
         <button
           class="navbar-toggler"
           type="button"
@@ -19,16 +20,19 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <router-link class="nav-link font-weight-bold" to="/main_products">主題商品</router-link>
+                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('主題商品')">
+                  主題商品
+                  <span class="sr-only">(current)</span>
+                </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#">
+                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('人氣精選')">
                   人氣精選
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#">
+                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('清倉55折')">
                   清倉55折
                   <span class="sr-only">(current)</span>
                 </a>
@@ -54,7 +58,14 @@
 
 <script>
 export default {
+  props: ['propsData'],
 
+  methods: {
+    // 點擊名稱變換內容
+    change (id) {
+      this.$emit('emit', id)
+    }
+  }
 }
 </script>
 
