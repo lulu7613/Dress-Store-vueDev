@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <Alert />
     <Navbar />
-    <Banner />
+    <Banner v-if="this.$route.name ==='CustomerProducts'"/>
     <router-view :propsData="data"></router-view>
     <Footer />
   </div>
@@ -47,6 +47,7 @@ export default {
 
   created () {
     this.getProducts()
+    console.log(this.$route)
   }
 }
 </script>
