@@ -3,7 +3,6 @@
     <header class="container-fluid">
       <nav class="navbar navbar-expand-md navbar-dark">
         <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products" style="border:0">翠絲服飾</router-link>
-        <!-- <a class="navbar-brand font-weight-bolder logo-name" href="#" @click.prevent="change('all')">翠絲服飾</a> -->
         <button
           class="navbar-toggler"
           type="button"
@@ -58,12 +57,11 @@
 
 <script>
 export default {
-  props: ['propsData'],
 
   methods: {
     // 點擊名稱變換內容
-    change (id) {
-      this.$emit('emit', id)
+    change (name) {
+      this.$router.push(`/customer_products/${name}`)
     }
   }
 }
