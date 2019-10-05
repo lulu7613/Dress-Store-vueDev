@@ -29,6 +29,7 @@ export default {
     vm.$http.get(api).then((response) => {
       console.log('人氣精選', response.data)
       if (response.data.success) {
+        vm.$emit('emit', '人氣精選')
         response.data.products.forEach((item) => {
           if (item.category === '人氣精選') {
             vm.propsData.push(item)

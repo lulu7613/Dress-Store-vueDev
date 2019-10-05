@@ -2,7 +2,11 @@
   <div>
     <header class="container-fluid">
       <nav class="navbar navbar-expand-md navbar-dark">
-        <router-link class="navbar-brand font-weight-bolder logo-name" to="/customer_products" style="border:0">翠絲服飾</router-link>
+        <router-link
+          class="navbar-brand font-weight-bolder logo-name"
+          to="/customer_products"
+          style="border:0"
+        >翠絲服飾</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -19,22 +23,25 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('主題商品')">
-                  主題商品
-                  <span class="sr-only">(current)</span>
-                </a>
+                <router-link
+                  class="nav-link font-weight-bold"
+                  to="/customer_products/主題商品"
+                  style="border:0"
+                >主題商品</router-link>
               </li>
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('人氣精選')">
-                  人氣精選
-                  <span class="sr-only">(current)</span>
-                </a>
+                <router-link
+                  class="nav-link font-weight-bold"
+                  to="/customer_products/人氣精選"
+                  style="border:0"
+                >人氣精選</router-link>
               </li>
               <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="#" @click.prevent="change('清倉55折')">
-                  清倉55折
-                  <span class="sr-only">(current)</span>
-                </a>
+                <router-link
+                  class="nav-link font-weight-bold"
+                  to="/customer_products/清倉55折"
+                  style="border:0"
+                >清倉55折</router-link>
               </li>
             </ul>
 

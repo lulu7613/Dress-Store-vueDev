@@ -29,6 +29,7 @@ export default {
     vm.$http.get(api).then((response) => {
       console.log('清倉55折', response.data)
       if (response.data.success) {
+        vm.$emit('emit', '清倉55折')
         response.data.products.forEach((item) => {
           if (item.category === '清倉55折') {
             vm.propsData.push(item)

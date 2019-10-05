@@ -29,6 +29,7 @@ export default {
     vm.$http.get(api).then((response) => {
       console.log('主題商品', response.data)
       if (response.data.success) {
+        vm.$emit('emit', '主題商品')
         response.data.products.forEach((item) => {
           if (item.category === '主題商品') {
             vm.propsData.push(item)

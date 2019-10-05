@@ -5,11 +5,13 @@
         <li class="breadcrumb-item">
           <router-link to="/customer_products">首頁</router-link>
           </li>
-        <li class="breadcrumb-item">
-          <!-- <router-link to="">{{ propsData.category }}</router-link> -->
+        <li class="breadcrumb-item" v-if="propsData.title">
           <a href="#" @click.prevent="goPage(propsData.category)">{{ propsData.category }}</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">
+        <li class="breadcrumb-item active" v-if="!propsData.title">
+          {{ propsData.category }}
+        </li>
+        <li class="breadcrumb-item active" v-if="propsData.title">
           {{ propsData.title }}
         </li>
       </ol>

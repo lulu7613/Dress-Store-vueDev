@@ -28,6 +28,7 @@ export default {
     const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
     vm.$http.get(api).then((response) => {
       console.log('全部商品', response.data)
+      vm.$emit('emit', '全部商品')
       if (response.data.success) {
         vm.propsData = response.data.products
         vm.isLoading = false

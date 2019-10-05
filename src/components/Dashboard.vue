@@ -2,7 +2,7 @@
   <div>
     <Alert />
     <Navbar/>
-    <Banner v-if="this.$route.name !=='CustomerProduct'"/>
+    <Banner class="mb-4" v-if="this.$route.name !=='CustomerProduct'"/>
     <router-view></router-view>
     <Footer />
   </div>
