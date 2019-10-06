@@ -22,7 +22,7 @@ export default new Router({
   routes: [
     // {
     //   path: '*',
-    //   redirect: 'customer_products/all'
+    //   redirect: 'customer_products/'
     // },
     { // 客戶端頁面
       path: '/',

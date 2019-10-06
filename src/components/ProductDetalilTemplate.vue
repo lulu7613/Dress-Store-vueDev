@@ -68,7 +68,10 @@
         <select class="form-control mr-3" v-model="propsData.num">
           <option :value="num" v-for="num in 10" :key="num">選購 {{num}} {{propsData.unit}}</option>
         </select>
-        <button class="btn btn-primary">加入購物車</button>
+        <button class="btn btn-primary" @click="addCart(propsData.id, propsData.num)">
+          <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === propsData.id"></i>
+          加入購物車
+        </button>
       </div>
     </div>
   </div>
@@ -76,6 +79,33 @@
 
 <script>
 export default {
-  props: ['propsData']
+  props: ['propsData'],
+
+  data () {
+    return {
+      filterLoadingItem: ''
+    }
+  },
+
+  methods: {
+    // 加入購物車 /api/:api_path/cart
+    addCart (id, qty = 1) {
+      const vm = this
+      vm.filterLoadingItem = id
+      const postData = {
+        'product_id': id,
+        'qty': qty
+      }
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart`
+      vm.$http.post(api, {data: postData}).then((response) => {
+        console.log('加入購物車(dital)', response.data)
+        if (response.data.success) {
+          vm.filterLoadingItem = ''
+          vm.$bus.$emit('messsage:push', response.data.message, 'success')
+          vm.$bus.$emit('cartsQty:update')
+        }
+      })
+    }
+  }
 }
 </script>

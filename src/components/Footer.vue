@@ -3,44 +3,10 @@
     <footer class="container-fluid fixed-bottom" style="background-color: #f8f9fa">
       <div class="row">
         <div class="col-3">
-          <button
-            type="button"
-            class="btn btn-cart"
-            data-toggle="dropdown"
-            aria-expanded="false"
-            @click="getCart()"
-          >
+          <button type="button" class="btn btn-cart" @click="openCartModal()">
             <i class="fas fa-shopping-cart text-dark fa-2x"></i>
-            <span class="badge badge-pill badge-danger bage-num">0</span>
+            <span class="badge badge-pill badge-danger bage-num">{{ cartsQty }}</span>
           </button>
-
-          <!-- 購物車 Dropdown -->
-          <div class="dropdown-menu">
-            <div class="px-4 py-3">
-              <h6>購買物品</h6>
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td class="align-middle p-0">
-                      <button type="button" class="btn btn-sm p-0 text-danger">
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </td>
-                    <td class="align-middle">很好看襯衫</td>
-                    <td class="align-middle">1件</td>
-                    <td class="align-middle text-right">$600元</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="3" class="text-right">總計</td>
-                    <td class="text-right">$1,200元</td>
-                  </tr>
-                </tfoot>
-              </table>
-              <button type="button" class="btn btn-primary btn-block">結帳去</button>
-            </div>
-          </div>
         </div>
         <div class="footer-text col-9 text-right align-self-center">
           <router-link to="/login">管理者模式</router-link>
@@ -48,6 +14,55 @@
         </div>
       </div>
     </footer>
+
+    <!-- Cart Modal -->
+    <div
+      class="modal fade"
+      id="cartModal"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom:0">
+            <h5 class="modal-title" id="exampleModalCenterTitle">已購買物品</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" v-if="carts.total">
+            <p class="text-center text-danger" v-if="carts.carts.length ===0">您尚未購買商品</p>
+            <table class="table" v-else>
+              <tbody>
+                <tr v-for="item in carts.carts" :key="item.id">
+                  <td class="align-middle p-0">
+                    <button
+                      type="button"
+                      class="btn btn-sm p-0 text-danger"
+                      @click="removeCart(item.id)"
+                    >
+                    <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === item.id"></i>
+                      <i class="far fa-trash-alt" v-else></i>
+
+                    </button>
+                  </td>
+                  <td class="align-middle">{{item.product.title}}</td>
+                  <td class="align-middle text-right">{{item.qty}}件</td>
+                  <td class="align-middle text-right">NT {{item.total | currency}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-right"><strong>小計</strong></td>
+                  <td class="text-right"><strong>NT {{carts.total | currency}}</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+            <button type="button" class="btn btn-primary btn-block" v-if="carts.carts.length >0">結帳去</button>
+            <button type="button" class="btn btn-light btn-block " data-dismiss="modal" v-else>關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,17 +72,63 @@ import $ from 'jquery'
 export default {
   data () {
     return {
-      carts: []
+      carts: [],
+      cartsQty: 0,
+
+      filterLoadingItem: ''
 
     }
   },
 
   methods: {
     // 取得購物車列表 /api/:api_path/cart
-    getCart () {
-      // 開關
-      $('.dropdown-toggle').dropdown()
+    getCarts () {
+      const vm = this
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart`
+      vm.$http.get(api).then((response) => {
+        console.log('購物車列表', response.data)
+        if (response.data.success) {
+          vm.carts = response.data.data
+          vm.cartsQty = response.data.data.carts.length
+        }
+      })
+    },
+
+    // 刪除某一筆購物車資料
+    removeCart (id) {
+      const vm = this
+      vm.filterLoadingItem = id
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart/${id}`
+      vm.$http.delete(api).then((response) => {
+        console.log('刪除購物車', response.data)
+        if (response.data.success) {
+          vm.$bus.$emit('messsage:push', response.data.message, 'success')
+          vm.getCarts()
+          vm.filterLoadingItem = ''
+        }
+      })
+    },
+
+    // 開啟 cart Modal
+    openCartModal () {
+      this.getCarts()
+      $('#cartModal').modal('show')
+    },
+
+    // 更新 carts 的購買數量 cartsQty
+    uptadeCartsQty () {
+      this.getCarts()
     }
+  },
+
+  created () {
+    this.getCarts()
+
+    // 自定義 $bus 觸發方法
+    const vm = this
+    vm.$bus.$on('cartsQty:update', () => {
+      vm.uptadeCartsQty()
+    })
   }
 }
 </script>

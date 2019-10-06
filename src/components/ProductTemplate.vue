@@ -33,8 +33,8 @@
         </div>
         <div class="card-footer d-flex bg-white">
           <button type="button" class="btn btn-light btn-sm" @click="goToProductPage(item.id)">查看更多</button>
-          <button type="button" class="btn btn-primary btn-sm ml-auto">
-            <i class="fas fa-spinner fa-spin"></i>
+          <button type="button" class="btn btn-primary btn-sm ml-auto" @click="addCart(item.id)">
+            <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === item.id"></i>
             加入購物車
           </button>
         </div>
@@ -47,11 +47,36 @@
 export default {
   props: ['propsData'],
 
+  data () {
+    return {
+      filterLoadingItem: ''
+    }
+  },
+
   methods: {
     // 點擊查看更多到商品細項元件 CustomerProduct/:id
     goToProductPage (id) {
       this.$router.push(`/customer_product/${id}`)
       this.$emit('emit', id)
+    },
+
+    // 加入購物車 (qty 為 1) /api/:api_path/cart
+    addCart (id, qty = 1) {
+      const vm = this
+      vm.filterLoadingItem = id
+      const postData = {
+        'product_id': id,
+        'qty': qty
+      }
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart`
+      vm.$http.post(api, {data: postData}).then((response) => {
+        console.log('加入購物車(temp)', response.data)
+        if (response.data.success) {
+          vm.filterLoadingItem = ''
+          vm.$bus.$emit('messsage:push', response.data.message, 'success')
+          vm.$bus.$emit('cartsQty:update')
+        }
+      })
     }
   }
 }

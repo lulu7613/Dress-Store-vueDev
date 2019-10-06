@@ -62,18 +62,6 @@
   </div>
 </template>
 
-<script>
-export default {
-
-  methods: {
-    // 點擊名稱變換內容
-    change (name) {
-      this.$router.push(`/customer_products/${name}`)
-    }
-  }
-}
-</script>
-
 <style>
 header {
   background-image: url(../assets/images/header4.jpg);

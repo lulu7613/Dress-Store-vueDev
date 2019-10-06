@@ -13,13 +13,11 @@
 </template>
 
 <script>
-import ProductTemplate from '../ProductTemplate'
 import Breadcrumb from '../Breadcrumb'
 
 export default {
   components: {
-    Breadcrumb,
-    ProductTemplate
+    Breadcrumb
   },
 
   data () {

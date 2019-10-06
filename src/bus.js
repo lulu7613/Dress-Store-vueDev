@@ -6,4 +6,6 @@ Vue.prototype.$bus = new Vue()
 // this.$bus.$emit('messsage:push', message, status)
 // message(string): 訊息內容
 // status(string): bootstrap Alert 樣式
-// 元件: AlertMessage.vue
+
+// Footer (update 購物車購買數字)
+// this.$bus.$emit('cartsQty:update')
