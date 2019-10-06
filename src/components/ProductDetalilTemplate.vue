@@ -4,21 +4,21 @@
       <img :src="propsData.imageUrl" alt="1101al.jpg" class="img-fluid" />
     </div>
     <div class="col-lg-5 mb-5" id="product-content-main">
-      <div class="d-flex align-items-baseline mb-1">
+      <div class="d-flex align-items-baseline">
         <h1 class="h3 font-weight-bolder mr-auto">{{ propsData.title }}</h1>
-        <span
-          class="badge badge-secondary float-right ml-2"
-          v-if="propsData.category === '主題商品'"
-        >{{ propsData.category }}</span>
-        <span
-          class="badge badge-warning float-right ml-2"
-          v-if="propsData.category === '人氣精選'"
-        >{{ propsData.category }}</span>
-        <span
-          class="badge badge-success float-right ml-2"
-          v-if="propsData.category === '清倉55折'"
-        >{{ propsData.category }}</span>
       </div>
+      <span
+        class="badge badge-secondary mb-2"
+        v-if="propsData.category === '主題商品'"
+      >{{ propsData.category }}</span>
+      <span
+        class="badge badge-warning mb-2"
+        v-if="propsData.category === '人氣精選'"
+      >{{ propsData.category }}</span>
+      <span
+        class="badge badge-success mb-2"
+        v-if="propsData.category === '清倉55折'"
+      >{{ propsData.category }}</span>
       <p>{{propsData.content}}</p>
       <div class="d-flex justify-content-end align-items-end">
         <del>
@@ -36,7 +36,7 @@
 
       <hr />
 
-      <span class="text-muted mr-1">尺寸 :</span>
+      <!-- <span class="text-muted mr-1">尺寸 :</span>
       <div class="btn-group btn-group-toggle">
         <label
           class="btn btn-outline-secondary"
@@ -62,7 +62,7 @@
         >
           <input type="radio" name="buy-size" value="XL" v-model="propsData.description" /> XL
         </label>
-      </div>
+      </div>-->
 
       <div class="input-group mt-3">
         <select class="form-control mr-3" v-model="propsData.num">
@@ -72,6 +72,10 @@
           <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === propsData.id"></i>
           加入購物車
         </button>
+      </div>
+      <div class="text-muted text-right text-nowrap mt-3" v-if="propsData.num >1">
+        小計
+        <strong>{{ propsData.num * propsData.price | currency }}</strong> 元
       </div>
     </div>
   </div>
