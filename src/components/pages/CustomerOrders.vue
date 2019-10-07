@@ -6,19 +6,32 @@
     <!-- 步驟提示 -->
     <div class="form-row mt-5">
       <div class="col-12 col-sm">
-        <div class="alert alert-success text-center alert-radius" style="border-radius: 50px" role="alert">1. 輸入訂單資料</div>
+        <div
+          class="alert alert-success text-center alert-radius"
+          style="border-radius: 50px"
+          role="alert"
+        >1. 輸入訂單資料</div>
       </div>
       <div class="col-12 col-sm">
-        <div class="alert alert-light text-center alert-radius" style="border-radius: 50px" role="alert">2. 金流付款</div>
+        <div
+          class="alert alert-light text-center alert-radius"
+          style="border-radius: 50px"
+          role="alert"
+        >2. 金流付款</div>
       </div>
       <div class="col-12 col-sm">
-        <div class="alert alert-light text-center alert-radius" style="border-radius: 50px" role="alert">3. 完成</div>
+        <div
+          class="alert alert-light text-center alert-radius"
+          style="border-radius: 50px"
+          role="alert"
+        >3. 完成</div>
       </div>
     </div>
 
+    <!-- 輸入訂單資料 -->
     <div class="row justify-content-center mt-5">
       <div class="col-md-9">
-        <!-- 優惠券 -->
+        <!-- 外層 -->
         <div class="input-group mb-4 input-group-lg">
           <input type="text" class="form-control" placeholder="請輸入優惠碼" />
           <div class="input-group-append">
@@ -41,59 +54,61 @@
               class="align-self-center mb-0 h4 font-weight-bold"
             >NT {{ orders.final_total | currency }}</div>
           </div>
-        </div>
 
-        <!-- 收合內容 -->
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" style>
-          <table class="table mt-3">
-            <thead class="alert-primary">
-              <th width="45"></th>
-              <th width="80"></th>
-              <th>商品名稱</th>
-              <th width="60" class="text-right">數量</th>
-              <th width="130" class="text-right">小計</th>
-            </thead>
-            <tbody>
-              <tr v-for="item in orders.carts" :key="item.id">
-                <td class="align-middle">
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger btn-sm"
-                    @click="removeCartItem(item.id)"
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                </td>
-                <td>
-                  <img :src="item.product.imageUrl" class="img-fluid" alt />
-                </td>
-                <td class="align-middle">
-                  <router-link :to="`/customer_product/${item.product.id}`">{{ item.product.title }}</router-link>
-                  <div class="text-success" v-if="item.coupon">已套用優惠券</div>
-                </td>
-                <td class="align-middle text-right">{{ item.qty }}件</td>
-                <td class="align-middle text-right">{{ item.final_total | currency }}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4" class="text-right">
-                  <strong>總計</strong>
-                </td>
-                <td class="text-right">
-                  <strong>NT {{ orders.total | currency }}</strong>
-                </td>
-              </tr>
-              <tr v-if="orders.carts.coupon">
-                <td colspan="4" class="text-right text-danger">
-                  <strong>折扣價</strong>
-                </td>
-                <td class="text-right text-danger">
-                  <strong>NT {{ orders.final_total | currency }}</strong>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+          <!-- 收合內容 -->
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" style>
+            <table class="table mt-3">
+              <thead class="alert-primary">
+                <th width="45"></th>
+                <th width="80"></th>
+                <th>商品名稱</th>
+                <th width="60" class="text-right">數量</th>
+                <th width="130" class="text-right">小計</th>
+              </thead>
+              <tbody>
+                <tr v-for="item in orders.carts" :key="item.id">
+                  <td class="align-middle">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      @click="removeCartItem(item.id)"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <img :src="item.product.imageUrl" class="img-fluid" alt />
+                  </td>
+                  <td class="align-middle">
+                    <router-link
+                      :to="`/customer_product/${item.product.id}`"
+                    >{{ item.product.title }}</router-link>
+                    <div class="text-success" v-if="item.coupon">已套用優惠券</div>
+                  </td>
+                  <td class="align-middle text-right">{{ item.qty }}件</td>
+                  <td class="align-middle text-right">{{ item.final_total | currency }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4" class="text-right">
+                    <strong>總計</strong>
+                  </td>
+                  <td class="text-right">
+                    <strong>NT {{ orders.total | currency }}</strong>
+                  </td>
+                </tr>
+                <tr v-if="orders.carts.coupon">
+                  <td colspan="4" class="text-right text-danger">
+                    <strong>折扣價</strong>
+                  </td>
+                  <td class="text-right text-danger">
+                    <strong>NT {{ orders.final_total | currency }}</strong>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -190,16 +205,18 @@ export default {
       orders: [],
       form: {
         user: {}
+
       }
     }
   },
 
   methods: {
+    // 取得訂單
     getOrders () {
       const vm = this
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart`
       vm.$http.get(api).then((response) => {
-        console.log('結帳列表', response.data)
+        console.log('結帳-輸入訂單資料', response.data)
         if (response.data.success) {
           vm.orders = response.data.data
         }

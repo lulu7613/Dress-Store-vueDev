@@ -63,7 +63,7 @@ export default new Router({
           component: CustomerProduct
         },
         {
-          path: 'customer_orders', // 訂單頁面
+          path: 'customer_orders', // 結帳頁面 - 輸入訂購資料
           name: 'CustomerOrders',
           component: CustomerOrders
         }
