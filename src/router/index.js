@@ -15,6 +15,8 @@ import CustomerOrders from '@/components/pages/CustomerOrders'
 // 管理者頁面
 import DashboardRoot from '@/components/DashboardRoot'
 import Products from '@/components/pages/Products'
+import Orders from '@/components/pages/Orders'
+import Coupons from '@/components/pages/Coupons'
 
 Vue.use(Router)
 
@@ -76,7 +78,26 @@ export default new Router({
           name: 'Products',
           component: Products,
           meta: { requiresAuth: true } // 導航守衛: 到達這頁面需要授權
+        },
+        {
+          path: 'orders', // 訂單管理
+          name: 'Orders',
+          component: Orders,
+          meta: { requiresAuth: true } // 導航守衛: 到達這頁面需要授權
+        },
+        {
+          path: 'orders', // 訂單管理
+          name: 'Orders',
+          component: Orders,
+          meta: { requiresAuth: true } // 導航守衛: 到達這頁面需要授權
+        },
+        {
+          path: 'coupons', // 優惠券管理
+          name: 'Coupons',
+          component: Coupons,
+          meta: { requiresAuth: true } // 導航守衛: 到達這頁面需要授權
         }
+
       ]
     }
   ]

@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <loading :active.sync="isLoading"></loading>
-
     <div class="row my-3">
       <div class="col-md-6">
         <Page :propsPage="pagination" @emitPage="getProducts"/>
