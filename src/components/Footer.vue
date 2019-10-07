@@ -9,7 +9,8 @@
           </button>
         </div>
         <div class="footer-text col-9 text-right align-self-center">
-          <router-link to="/login">管理者模式</router-link>
+          <!-- <router-link to="/login">管理者模式</router-link> -->
+          <a href="#" @click.prevent="goLogin()">管理者模式</a>
           <br />蔡昀芷製作 / 圖片素材均來自網路
         </div>
       </div>
@@ -123,6 +124,21 @@ export default {
     goOrders () {
       this.$router.push('/customer_orders')
       $('#cartModal').modal('hide')
+    },
+
+    // 進入管理者頁面 (進行登入驗證)
+    goLogin () {
+      // 檢查用戶是否仍持續登入 /api/user/check
+      const vm = this
+      const api = `${process.env.API_PATH}/api/user/check`
+      vm.$http.post(api).then((response) => {
+        console.log('Login 檢查登入狀態', response.data)
+        if (response.data.success) {
+          vm.$router.push('/admin/products')
+        } else {
+          vm.$router.push('/login')
+        }
+      })
     }
   },
 

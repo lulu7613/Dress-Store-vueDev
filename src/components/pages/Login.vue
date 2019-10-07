@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Alert/>
     <div class="container col-12 col-md-8 col-xl-4 mt-3 mt-md-5 p-5 border-warning border">
       <h1 class="h3 text-center font-weight-bold member-title mb-4">管理員登入</h1>
       <div class="form-group">
@@ -43,13 +42,8 @@
 </template>
 
 <script>
-import Alert from '../AlterMessage'
 
 export default {
-  components: {
-    Alert
-  },
-
   data () {
     return {
       user: {
@@ -80,20 +74,6 @@ export default {
         }
       })
     }
-  },
-
-  created () {
-    // 檢查用戶是否仍持續登入 /api/user/check
-    const vm = this
-    const api = `${process.env.API_PATH}/api/user/check`
-    vm.$http.post(api).then((response) => {
-      console.log('Login 檢查登入狀態', response.data)
-      if (response.data.success) {
-        vm.$router.push('/admin/products')
-      } else {
-        this.$bus.$emit('messsage:push', '已登出帳號，請重新登入', 'danger') // 登出狀態訊息
-      }
-    })
   }
 }
 </script>
