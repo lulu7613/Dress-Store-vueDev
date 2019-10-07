@@ -16,11 +16,7 @@
     </footer>
 
     <!-- Cart Modal -->
-    <div
-      class="modal fade"
-      id="cartModal"
-      tabindex="-1"
-    >
+    <div class="modal fade" id="cartModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom:0">
@@ -40,9 +36,8 @@
                       class="btn btn-sm p-0 text-danger"
                       @click="removeCart(item.id)"
                     >
-                    <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === item.id"></i>
+                      <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === item.id"></i>
                       <i class="far fa-trash-alt" v-else></i>
-
                     </button>
                   </td>
                   <td class="align-middle">{{item.product.title}}</td>
@@ -52,13 +47,17 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="3" class="text-right"><strong>小計</strong></td>
-                  <td class="text-right"><strong>NT {{carts.total | currency}}</strong></td>
+                  <td colspan="3" class="text-right">
+                    <strong>小計</strong>
+                  </td>
+                  <td class="text-right">
+                    <strong>NT {{carts.total | currency}}</strong>
+                  </td>
                 </tr>
               </tfoot>
             </table>
-            <button type="button" class="btn btn-primary btn-block" v-if="carts.carts.length >0">結帳去</button>
-            <button type="button" class="btn btn-light btn-block " data-dismiss="modal" v-else>關閉</button>
+            <button type="button" class="btn btn-primary btn-block" v-if="carts.carts.length >0" @click="goOrders()">結帳去</button>
+            <button type="button" class="btn btn-light btn-block" data-dismiss="modal" v-else>關閉</button>
           </div>
         </div>
       </div>
@@ -118,6 +117,12 @@ export default {
     // 更新 carts 的購買數量 cartsQty
     uptadeCartsQty () {
       this.getCarts()
+    },
+
+    // 進入結帳頁面
+    goOrders () {
+      this.$router.push('/customer_orders')
+      $('#cartModal').modal('hide')
     }
   },
 

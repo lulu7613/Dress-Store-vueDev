@@ -11,6 +11,7 @@ import CustomerProductsTopic from '@/components/pages/CustomerProductsTopic'
 import CustomerProductsHot from '@/components/pages/CustomerProductsHot'
 import CustomerProductsDiscount from '@/components/pages/CustomerProductsDiscount'
 import CustomerProductsAll from '@/components/pages/CustomerProductsAll'
+import CustomerOrders from '@/components/pages/CustomerOrders'
 
 // 管理者頁面
 import DashboardRoot from '@/components/DashboardRoot'
@@ -60,7 +61,13 @@ export default new Router({
           path: 'customer_product/:id', // 單一商品細節
           name: 'CustomerProduct',
           component: CustomerProduct
+        },
+        {
+          path: 'customer_orders', // 訂單頁面
+          name: 'CustomerOrders',
+          component: CustomerOrders
         }
+
       ]
     },
     {
