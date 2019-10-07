@@ -6,11 +6,10 @@ import Login from '@/components/pages/Login'
 // 客戶端頁面
 import Dashboard from '@/components/Dashboard'
 import CustomerProducts from '@/components/pages/CustomerProducts'
-import CustomerProduct from '@/components/pages/CustomerProduct'
 import CustomerProductsTopic from '@/components/pages/CustomerProductsTopic'
 import CustomerProductsHot from '@/components/pages/CustomerProductsHot'
 import CustomerProductsDiscount from '@/components/pages/CustomerProductsDiscount'
-import CustomerProductsAll from '@/components/pages/CustomerProductsAll'
+import CustomerProduct from '@/components/pages/CustomerProduct'
 import CustomerOrders from '@/components/pages/CustomerOrders'
 
 // 管理者頁面
@@ -31,31 +30,24 @@ export default new Router({
       component: Dashboard,
       children: [
         {
-          path: 'customer_products', // 商品列表
+          path: 'customer_products', // 全部商品
           name: 'CustomerProducts',
-          component: CustomerProducts,
-          children: [
-            {
-              path: '', // 全部商品
-              name: 'CustomerProductsAll',
-              component: CustomerProductsAll
-            },
-            {
-              path: '主題商品', // 主題商品
-              name: 'CustomerProductsTopic',
-              component: CustomerProductsTopic
-            },
-            {
-              path: '人氣精選', // 人氣精選
-              name: 'CustomerProductsHot',
-              component: CustomerProductsHot
-            },
-            {
-              path: '清倉55折', // 清倉55折
-              name: 'CustomerProductsDiscount',
-              component: CustomerProductsDiscount
-            }
-          ]
+          component: CustomerProducts
+        },
+        {
+          path: 'customer_products_topic', // 主題商品
+          name: 'CustomerProductsTopic',
+          component: CustomerProductsTopic
+        },
+        {
+          path: 'customer_products_hot', // 人氣精選
+          name: 'CustomerProductsHot',
+          component: CustomerProductsHot
+        },
+        {
+          path: 'customer_products_discount', // 清倉55折
+          name: 'CustomerProductsDiscount',
+          component: CustomerProductsDiscount
         },
         {
           path: 'customer_product/:id', // 單一商品細節
@@ -67,7 +59,6 @@ export default new Router({
           name: 'CustomerOrders',
           component: CustomerOrders
         }
-
       ]
     },
     {

@@ -25,21 +25,21 @@
               <li class="nav-item active">
                 <router-link
                   class="nav-link font-weight-bold"
-                  to="/customer_products/主題商品"
+                  to="/customer_products_topic"
                   style="border:0"
                 >主題商品</router-link>
               </li>
               <li class="nav-item active">
                 <router-link
                   class="nav-link font-weight-bold"
-                  to="/customer_products/人氣精選"
+                  to="/customer_products_hot"
                   style="border:0"
                 >人氣精選</router-link>
               </li>
               <li class="nav-item active">
                 <router-link
                   class="nav-link font-weight-bold"
-                  to="/customer_products/清倉55折"
+                  to="/customer_products_discount"
                   style="border:0"
                 >清倉55折</router-link>
               </li>

@@ -24,8 +24,16 @@ export default {
   props: ['propsData'],
 
   methods: {
-    goPage (name) {
-      this.$router.push(`/customer_products/${name}`)
+    goPage (value) {
+      let name = ''
+      if (value === '主題商品') {
+        name = 'topic'
+      } else if (value === '人氣精選') {
+        name = 'hot'
+      } else if (value === '清倉55折') {
+        name = 'discount'
+      }
+      this.$router.push(`/customer_products_${name}`)
     }
   }
 }
