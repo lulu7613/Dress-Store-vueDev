@@ -11,6 +11,7 @@ import CustomerProductsHot from '@/components/pages/CustomerProductsHot'
 import CustomerProductsDiscount from '@/components/pages/CustomerProductsDiscount'
 import CustomerProduct from '@/components/pages/CustomerProduct'
 import CustomerOrders from '@/components/pages/CustomerOrders'
+import CustomerCheck from '@/components/pages/CustomerCheck'
 
 // 管理者頁面
 import DashboardRoot from '@/components/DashboardRoot'
@@ -60,6 +61,11 @@ export default new Router({
           path: 'customer_orders', // 結帳頁面 - 輸入訂購資料
           name: 'CustomerOrders',
           component: CustomerOrders
+        },
+        {
+          path: 'customer_check/:id', // 結帳頁面 - 金流付款 & 付款完成
+          name: 'CustomerCheck',
+          component: CustomerCheck
         }
       ]
     },

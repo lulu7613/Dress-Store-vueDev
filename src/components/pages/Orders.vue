@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="row my-3">
       <div class="col-md-6">
-        <Page @postPage="getOrders" :propsPage="pagination" />
+        <Page @emitPage="getOrders" :propsPage="pagination" />
       </div>
     </div>
 
@@ -66,7 +66,7 @@ export default {
       this.isLoading = true
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/orders?page=${page}`
       this.$http.get(api).then((response) => {
-        console.log('Orders', response.data)
+        console.log('訂單管理', response.data)
         this.isLoading = false
         this.orders = response.data.orders
         this.pagination = response.data.pagination

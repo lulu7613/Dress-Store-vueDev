@@ -259,6 +259,7 @@ export default {
         if (response.data.success) {
           this.$bus.$emit('messsage:push', response.data.message, 'success')
           this.getOrders()
+          this.couponCode = ''
         } else {
           this.$bus.$emit('messsage:push', response.data.message, 'danger')
         }
@@ -268,16 +269,16 @@ export default {
     // 送出訂單 /api/:api_path/order
     addCartOrder () {
       const vm = this
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/order`
+
       // vee-validate 表單驗證
       this.$validator.validate().then((result) => {
         if (result) {
-          const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/order`
-          vm.$http.post(api, vm.form).then((response) => {
+          vm.$http.post(api, {data: vm.form}).then((response) => {
             console.log('結帳-送出訂單', response.data)
             if (response.data.success) {
-
-            } else {
-              vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+              this.$bus.$emit('cartsQty:update')
+              vm.$router.push(`/customer_check/${response.data.orderId}`)
             }
           })
         }
