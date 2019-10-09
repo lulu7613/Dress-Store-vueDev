@@ -2,12 +2,12 @@
   <div class="container-fulid">
     <loading :active.sync="isLoading"></loading>
     <Banner class="mb-4" />
-    <div class="row mb-5">
-      <div class="col-md-10">
+    <div class="row mb-5 mr-0">
+      <div class="col-md-9">
         <Breadcrumb class="pl-0 mb-4" :propsData="Breadcrumb"/>
         <ProductTemplate :propsData="propsData" />
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <p>優惠券區</p>
       </div>
     </div>

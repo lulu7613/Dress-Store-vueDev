@@ -1,6 +1,6 @@
 <template>
   <div class="row pl-4">
-    <div class="col-12 col-md-6 col-lg-3 mb-5" v-for="item in propsData" :key="item.id">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-5" v-for="item in propsData" :key="item.id">
       <div class="card">
         <img :src="item.imageUrl" class="card-img-top pt-3 px-3" :alt="item.title" />
         <div class="card-body">
