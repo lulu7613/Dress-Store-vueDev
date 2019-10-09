@@ -1,5 +1,6 @@
 <template>
   <main class="container mb-5">
+    <loading :active.sync="isLoading"></loading>
     <h1 class="h2 text-center" style="color:#787878">
       <strong>結帳頁面</strong>
     </h1>
@@ -33,7 +34,7 @@
       <div class="col-md-9">
         <!-- 外層 -->
         <div class="input-group mb-4 input-group-lg">
-          <input type="text" class="form-control" placeholder="請輸入優惠碼" />
+          <input type="text" class="form-control" placeholder="請輸入優惠碼" v-model="couponCode" />
           <div class="input-group-append">
             <button class="btn btn-danger" type="button" @click="addCoupon()">套用優惠碼</button>
           </div>
@@ -52,7 +53,9 @@
             >顯示購物車細節</button>
             <div
               class="align-self-center mb-0 h4 font-weight-bold"
-            >NT {{ orders.final_total | currency }}</div>
+            >
+              <span class="h6" v-if="orders.final_total !== orders.total">( 已折扣 )</span>
+              NT {{ orders.final_total | currency }}</div>
           </div>
 
           <!-- 收合內容 -->
@@ -71,9 +74,10 @@
                     <button
                       type="button"
                       class="btn btn-outline-danger btn-sm"
-                      @click="removeCartItem(item.id)"
+                      @click="removeCart(item.id)"
                     >
-                      <i class="far fa-trash-alt"></i>
+                      <i class="fas fa-spinner fa-spin" v-if="filterLoadingItem === item.id"></i>
+                      <i class="far fa-trash-alt" v-else></i>
                     </button>
                   </td>
                   <td>
@@ -83,7 +87,7 @@
                     <router-link
                       :to="`/customer_product/${item.product.id}`"
                     >{{ item.product.title }}</router-link>
-                    <div class="text-success" v-if="item.coupon">已套用優惠券</div>
+                    <div class="text-warning" v-if="item.coupon"><small>已套用優惠券</small></div>
                   </td>
                   <td class="align-middle text-right">{{ item.qty }}件</td>
                   <td class="align-middle text-right">{{ item.final_total | currency }}</td>
@@ -98,7 +102,7 @@
                     <strong>NT {{ orders.total | currency }}</strong>
                   </td>
                 </tr>
-                <tr v-if="orders.carts.coupon">
+                <tr v-if="orders.final_total !== orders.total">
                   <td colspan="4" class="text-right text-danger">
                     <strong>折扣價</strong>
                   </td>
@@ -203,10 +207,12 @@ export default {
   data () {
     return {
       orders: [],
+      couponCode: '',
       form: {
         user: {}
-
-      }
+      },
+      isLoading: false,
+      filterLoadingItem: false
     }
   },
 
@@ -214,14 +220,70 @@ export default {
     // 取得訂單
     getOrders () {
       const vm = this
+      vm.isLoading = true
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart`
       vm.$http.get(api).then((response) => {
         console.log('結帳-輸入訂單資料', response.data)
         if (response.data.success) {
           vm.orders = response.data.data
+          vm.isLoading = false
+        }
+      })
+    },
+
+    // 刪除某一筆購物車資料
+    removeCart (id) {
+      const vm = this
+      vm.filterLoadingItem = id
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/cart/${id}`
+      vm.$http.delete(api).then((response) => {
+        console.log('刪除購物車', response.data)
+        if (response.data.success) {
+          vm.$bus.$emit('messsage:push', response.data.message, 'success')
+          vm.getOrders()
+          this.$bus.$emit('cartsQty:update')
+          vm.filterLoadingItem = ''
+        }
+      })
+    },
+
+    // 套用優惠券 /api/:api_path/coupon
+    addCoupon () {
+      const vm = this
+      const coupon = {
+        'code': vm.couponCode
+      }
+      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/coupon`
+      vm.$http.post(api, {data: coupon}).then((response) => {
+        console.log('結帳-套用優惠券', response.data)
+        if (response.data.success) {
+          this.$bus.$emit('messsage:push', response.data.message, 'success')
+          this.getOrders()
+        } else {
+          this.$bus.$emit('messsage:push', response.data.message, 'danger')
+        }
+      })
+    },
+
+    // 送出訂單 /api/:api_path/order
+    addCartOrder () {
+      const vm = this
+      // vee-validate 表單驗證
+      this.$validator.validate().then((result) => {
+        if (result) {
+          const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/order`
+          vm.$http.post(api, vm.form).then((response) => {
+            console.log('結帳-送出訂單', response.data)
+            if (response.data.success) {
+
+            } else {
+              vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+            }
+          })
         }
       })
     }
+
   },
 
   created () {

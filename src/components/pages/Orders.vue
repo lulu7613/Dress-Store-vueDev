@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="row my-3">
       <div class="col-md-6">
-        <Page @postPage="getOrders" :pages="pagination" />
+        <Page @postPage="getOrders" :propsPage="pagination" />
       </div>
     </div>
 

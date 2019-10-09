@@ -3,10 +3,10 @@
     <loading :active.sync="isLoading"></loading>
     <div class="row my-3">
       <div class="col-md-6">
-        <Page @postPage="getCoupons" :pages="pagination" />
+        <Page @postPage="getCoupons" :propsPage="pagination" />
       </div>
       <div class="col-md-6 text-right">
-        <button class="btn btn-primary" @click="openMedal('new')">新增優惠券</button>
+        <button class="btn btn-primary" @click="openModal('new')">新增優惠券</button>
       </div>
     </div>
 
@@ -48,8 +48,6 @@
     <!-- Modal 新增、編輯優惠券 -->
     <div
       class="modal fade"
-      :class="{ 'show': isShow }"
-      :style="{'display': showStyle.display, 'backgroundColor': showStyle.backgroundColor }"
       id="couponModal"
       tabindex="-1"
       role="dialog"
@@ -59,8 +57,9 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" aria-label="Close" @click="closeModal()">
+            <h5 class="modal-title" id="exampleModalLabel" v-if="modalType === 'new'">新增優惠券</h5>
+            <h5 class="modal-title" id="exampleModalLabel" v-else>修改優惠券</h5>
+            <button type="button" class="close" aria-label="Close" data-dismiss="modal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -114,7 +113,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" @click="updateCoupon()">更新優惠券</button>
           </div>
         </div>
@@ -124,9 +123,7 @@
     <!-- Modal 刪除 -->
     <div
       class="modal fade"
-      :class="{ 'show': isShow }"
-      :style="{'display': deleteShowStyle.display, 'background-color': deleteShowStyle.backgroundColor}"
-      id="delCoutempCouponModal"
+      id="delModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -169,6 +166,7 @@
 
 <script>
 import Page from '../Pagination'
+import $ from 'jquery'
 
 export default {
   components: {
@@ -182,18 +180,7 @@ export default {
       tempCoupon: {}, // 新增與修改存取
       pagination: {}, // 接收 ajax 的 page 資料，要 props 給 Pagination.vue
       modalType: 'new', // modal 判斷
-      due_date: '',
-
-      // modal 使用的樣式與判斷
-      isShow: false,
-      showStyle: { // 新增與修改 modal style
-        display: '',
-        backgroundColor: ''
-      },
-      deleteShowStyle: { // 刪除 modal style
-        display: '',
-        backgroundColor: ''
-      }
+      due_date: ''
     }
   },
 
@@ -212,7 +199,7 @@ export default {
       this.isLoading = true
       const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/admin/coupons?page=${page}`
       this.$http.get(api).then((response) => {
-        console.log('Coupons', response.data)
+        console.log('優惠券列表', response.data)
         this.isLoading = false
         this.coupons = response.data.coupons
         this.pagination = response.data.pagination
@@ -221,22 +208,19 @@ export default {
 
     // 開啟 Modal (新增、修改、刪除)
     openModal (modalType, item) {
-      this.isShow = true
+      const vm = this
       if (modalType === 'new') {
-        this.modalType = 'new'
-        this.tempCoupon = {}
-        this.showStyle.display = 'block'
-        this.showStyle.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+        vm.modalType = 'new'
+        vm.tempCoupon = {}
+        $('#couponModal').modal('show')
       } else if (modalType === 'edit') {
-        this.modalType = 'edit'
-        this.tempCoupon = item
-        this.showStyle.display = 'block'
-        this.showStyle.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+        vm.modalType = 'edit'
+        vm.tempCoupon = item
+        $('#couponModal').modal('show')
       } else if (modalType === 'delete') {
-        this.modalType = 'delete'
-        this.tempCoupon = item
-        this.deleteShowStyle.display = 'block'
-        this.deleteShowStyle.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+        vm.modalType = 'delete'
+        vm.tempCoupon = item
+        $('#delModal').modal('show')
       }
     },
 
@@ -259,20 +243,9 @@ export default {
       vm.$http[httpMethod](api, {'data': vm.tempCoupon}).then((response) => {
         console.log(this.modalType, response.data)
         this.getCoupons()
-        this.closeModal()
+        $('#couponModal').modal('hide')
+        $('#delModal').modal('hide')
       })
-    },
-
-    // 關閉 Modal (新增、修改、刪除)
-    closeModal () {
-      this.isShow = false
-      if (this.modalType === 'delete') {
-        this.deleteShowStyle.display = 'none'
-        this.deleteShowStyle.backgroundColor = ''
-      } else {
-        this.showStyle.display = 'none'
-        this.showStyle.backgroundColor = ''
-      }
     }
   },
 
