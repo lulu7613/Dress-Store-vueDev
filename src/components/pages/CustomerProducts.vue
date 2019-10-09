@@ -1,14 +1,16 @@
 <template>
-  <div class="container-fulid">
+  <div>
     <Banner class="mb-4" />
-    <loading :active.sync="isLoading"></loading>
-    <div class="row mb-5 mr-0">
-      <div class="col-lg-9">
-        <Breadcrumb class="pl-0 mb-4" :propsData="Breadcrumb" />
-        <ProductTemplate :propsData="propsData" />
-      </div>
-      <div class="col-md-3">
-        <p>優惠券區</p>
+    <div class="container-fluid">
+      <loading :active.sync="isLoading"></loading>
+      <div class="row mb-5">
+        <div class="col-lg-3 mt-md-5">
+          <CouponAd />
+        </div>
+        <div class="col-lg-9">
+          <Breadcrumb class="mb-4" :propsData="Breadcrumb" />
+          <ProductTemplate :propsData="propsData" />
+        </div>
       </div>
     </div>
   </div>
@@ -18,12 +20,14 @@
 import Banner from '../Banner'
 import Breadcrumb from '../Breadcrumb'
 import ProductTemplate from '../ProductTemplate'
+import CouponAd from '../CouponAd'
 
 export default {
   components: {
     Banner,
     Breadcrumb,
-    ProductTemplate
+    ProductTemplate,
+    CouponAd
   },
 
   data () {
