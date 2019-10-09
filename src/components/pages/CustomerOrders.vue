@@ -1,5 +1,5 @@
 <template>
-  <main class="container mb-5">
+  <main class="container my-5">
     <loading :active.sync="isLoading"></loading>
     <h1 class="h2 text-center" style="color:#787878">
       <strong>結帳頁面</strong>

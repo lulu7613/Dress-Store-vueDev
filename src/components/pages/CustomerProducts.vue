@@ -1,9 +1,10 @@
 <template>
   <div class="container-fulid">
+    <Banner class="mb-4" />
     <loading :active.sync="isLoading"></loading>
     <div class="row mb-5">
       <div class="col-md-10">
-        <Breadcrumb class="pl-0 mb-4" :propsData="Breadcrumb"/>
+        <Breadcrumb class="pl-0 mb-4" :propsData="Breadcrumb" />
         <ProductTemplate :propsData="propsData" />
       </div>
       <div class="col-md-2">
@@ -14,11 +15,13 @@
 </template>
 
 <script>
+import Banner from '../Banner'
 import Breadcrumb from '../Breadcrumb'
 import ProductTemplate from '../ProductTemplate'
 
 export default {
   components: {
+    Banner,
     Breadcrumb,
     ProductTemplate
   },

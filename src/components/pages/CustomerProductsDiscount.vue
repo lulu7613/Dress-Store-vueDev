@@ -1,6 +1,7 @@
 <template>
   <div class="container-fulid">
     <loading :active.sync="isLoading"></loading>
+    <Banner class="mb-4" />
     <div class="row mb-5">
       <div class="col-md-10">
         <Breadcrumb class="pl-0 mb-4" :propsData="Breadcrumb"/>
@@ -14,11 +15,13 @@
 </template>
 
 <script>
+import Banner from '../Banner'
 import Breadcrumb from '../Breadcrumb'
 import ProductTemplate from '../ProductTemplate'
 
 export default {
   components: {
+    Banner,
     Breadcrumb,
     ProductTemplate
   },
