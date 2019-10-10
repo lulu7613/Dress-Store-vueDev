@@ -1,6 +1,6 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  HTTP_PATH: 'https://vue-course-api.hexschool.io/',
-  HTTP_ADMIN: 'dress_store'
+  API_PATH: '"https://vue-course-api.hexschool.io"',
+  API_ADMIN: '"dress_store"'
 }
