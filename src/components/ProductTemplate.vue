@@ -17,9 +17,9 @@
             v-if="item.category === '清倉55折'"
           >{{ item.category }}</span>
 
-          <h5 class="card-title">
+          <h6 class="card-title">
             <a href="#" class="text-dark">{{item.title}}</a>
-          </h5>
+          </h6>
           <div class="d-flex justify-content-between align-items-baseline">
             <div class="h6 font-weight-bold" v-if="!item.price">NT{{item.origin_price | currency}}</div>
             <del v-if="item.price">

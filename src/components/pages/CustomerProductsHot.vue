@@ -20,12 +20,14 @@
 import Banner from '../Banner'
 import Breadcrumb from '../Breadcrumb'
 import ProductTemplate from '../ProductTemplate'
+import CouponAd from '../CouponAd'
 
 export default {
   components: {
     Banner,
     Breadcrumb,
-    ProductTemplate
+    ProductTemplate,
+    CouponAd
   },
 
   data () {

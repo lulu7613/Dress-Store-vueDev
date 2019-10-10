@@ -11,7 +11,7 @@
         <div class="footer-text col-9 text-right align-self-center">
           <!-- <router-link to="/login">管理者模式</router-link> -->
           <a href="#" @click.prevent="goLogin()">管理者模式</a>
-          <br />蔡昀芷製作 / 圖片素材均來自網路
+          <br />蔡昀芷製作 / 素材取自網路
         </div>
       </div>
     </footer>
@@ -20,14 +20,14 @@
     <div class="modal fade" id="cartModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom:0">
+          <div class="modal-header alert-primary" style="border-bottom:0">
             <h5 class="modal-title" id="exampleModalCenterTitle">已購買物品</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" v-if="carts.total">
-            <p class="text-center text-danger" v-if="carts.carts.length ===0">您尚未購買商品</p>
+          <div class="modal-body">
+            <p class="text-center text-danger" v-if="carts.carts.length === 0">您尚未購買商品</p>
             <table class="table" v-else>
               <tbody>
                 <tr v-for="item in carts.carts" :key="item.id">
