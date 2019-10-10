@@ -9,7 +9,8 @@
         </div>
         <div class="col-lg-9">
           <Breadcrumb class="mb-4" :propsData="Breadcrumb" />
-          <ProductTemplate :propsData="propsData" />
+          <p v-if="propsData.length ===0">搜尋不到商品</p>
+          <ProductTemplate :propsData="propsData"/>
         </div>
       </div>
     </div>
@@ -35,6 +36,7 @@ export default {
       Breadcrumb: {
         category: ''
       },
+      products: [],
       propsData: [],
       isLoading: false
 
@@ -50,9 +52,10 @@ export default {
       vm.$http.get(api).then((response) => {
         console.log(`搜尋頁面`, response.data)
         if (response.data.success) {
-          response.data.products.forEach((item) => {
+          vm.products = response.data.products
+          vm.Breadcrumb.category = `搜尋: ${keyword}`
+          vm.products.forEach((item) => {
             if (item.title.match(keyword) || item.category.match(keyword)) {
-              vm.Breadcrumb.category = `搜尋: ${keyword}`
               vm.propsData.push(item)
             }
           })
@@ -65,25 +68,25 @@ export default {
 
   created () {
     const vm = this
-    vm.getSearch()
+    if (vm.$route.name !== 'CusTomerProductsSearch') {
+      vm.getSearch()
+    }
     vm.$bus.$on('search:array', (keyword) => {
       vm.propsData = []
       vm.isLoading = true
-      const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
-      vm.$http.get(api).then((response) => {
-        console.log(`搜尋頁面`, response.data)
-        if (response.data.success) {
-          response.data.products.forEach((item) => {
-            if (item.title.match(keyword) || item.category.match(keyword)) {
-              vm.Breadcrumb.category = `搜尋: ${keyword}`
-              vm.propsData.push(item)
-            }
-          })
-          vm.isLoading = false
-          console.log(`關鍵字2: ${keyword}`, vm.propsData)
+      vm.Breadcrumb.category = `搜尋: ${keyword}`
+      vm.products.forEach((item) => {
+        if (item.title.match(keyword) || item.category.match(keyword)) {
+          vm.propsData.push(item)
         }
       })
+      vm.isLoading = false
+      console.log(`關鍵字2: ${keyword}`, vm.propsData)
     })
+  },
+
+  beforeDestroy () {
+    this.$bus.$off('search:array')
   }
 }
 </script>

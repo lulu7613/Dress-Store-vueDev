@@ -77,22 +77,6 @@ export default {
       vm.$bus.$emit('search:array', vm.keyword)
       vm.$router.push(`/customer_products_search/${vm.keyword}`)
       vm.keyword = ''
-      // const search = []
-      // const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
-      // vm.$http.get(api).then((response) => {
-      //   console.log(`搜尋`, response.data)
-      //   if (response.data.success) {
-      //     response.data.products.forEach((item) => {
-      //       if (item.title.match(vm.keyword) || item.category.match(vm.keyword)) {
-      //         search.push(item)
-      //       }
-      //     })
-      //     console.log(`關鍵字:${vm.keyword}`, search)
-      //     vm.$bus.$emit('search:array', search, vm.keyword)
-      //     vm.$router.push(`/customer_products_search/${vm.keyword}`)
-      //     vm.keyword = ''
-      //   }
-      // })
     }
   }
 }
