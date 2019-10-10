@@ -11,5 +11,5 @@ Vue.prototype.$bus = new Vue()
 // this.$bus.$emit('cartsQty:update')
 
 // CustomerProductsSearch (搜尋內容)
-// vm.$bus.$emit('search:array', search)
-// search(array): 搜尋的陣列
+// vm.$bus.$emit('search:array', keyword)
+// search(string): 搜尋的關鍵字
