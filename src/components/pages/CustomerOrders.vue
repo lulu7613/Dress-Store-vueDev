@@ -33,12 +33,13 @@
     <div class="row justify-content-center mt-5">
       <div class="col-md-9">
         <!-- 外層 -->
-        <div class="input-group mb-4 input-group-lg">
+        <div class="input-group input-group-lg mb-1">
           <input type="text" class="form-control" placeholder="請輸入優惠碼" v-model="couponCode" />
           <div class="input-group-append">
             <button class="btn btn-danger" type="button" @click="addCoupon()">套用優惠碼</button>
           </div>
         </div>
+        <div class="text-warning mb-4">全館年終大優惠，輸入999，商品一律打9折</div>
 
         <!-- 收合表單 -->
         <div class="card">
