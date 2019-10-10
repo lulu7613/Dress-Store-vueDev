@@ -24,17 +24,17 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '*',
-    //   redirect: 'customer_products/'
-    // },
+    {
+      path: '*',
+      redirect: '/'
+    },
     { // 客戶端頁面
       path: '/',
       name: 'Dashboard',
       component: Dashboard,
       children: [
         {
-          path: 'customer_products', // 全部商品
+          path: '', // 全部商品 (index)
           name: 'CustomerProducts',
           component: CustomerProducts
         },
