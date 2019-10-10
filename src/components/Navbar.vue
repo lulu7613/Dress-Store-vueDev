@@ -48,12 +48,13 @@
             <form class="form-inline my-2 my-lg-0" name="search">
               <input
                 class="form-control mr-sm-2"
-                id="search"
                 type="text"
                 placeholder="輸入產品關鍵字"
                 aria-label="Search"
+                v-model.trim="keyword"
+                @keyup.enter="search()"
               />
-              <button type="button" class="btn btn-success my-2 my-sm-0" id="btn-search">搜尋</button>
+              <button type="button" class="btn btn-success my-2 my-sm-0" @click="search()">搜尋</button>
             </form>
           </div>
         </slot>
@@ -61,6 +62,41 @@
     </header>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      keyword: ''
+    }
+  },
+
+  methods: {
+    search () {
+      const vm = this
+      vm.$bus.$emit('search:array', vm.keyword)
+      vm.$router.push(`/customer_products_search/${vm.keyword}`)
+      vm.keyword = ''
+      // const search = []
+      // const api = `${process.env.API_PATH}/api/${process.env.API_ADMIN}/products/all`
+      // vm.$http.get(api).then((response) => {
+      //   console.log(`搜尋`, response.data)
+      //   if (response.data.success) {
+      //     response.data.products.forEach((item) => {
+      //       if (item.title.match(vm.keyword) || item.category.match(vm.keyword)) {
+      //         search.push(item)
+      //       }
+      //     })
+      //     console.log(`關鍵字:${vm.keyword}`, search)
+      //     vm.$bus.$emit('search:array', search, vm.keyword)
+      //     vm.$router.push(`/customer_products_search/${vm.keyword}`)
+      //     vm.keyword = ''
+      //   }
+      // })
+    }
+  }
+}
+</script>
 
 <style>
 header {

@@ -9,6 +9,7 @@ import CustomerProducts from '@/components/pages/CustomerProducts'
 import CustomerProductsTopic from '@/components/pages/CustomerProductsTopic'
 import CustomerProductsHot from '@/components/pages/CustomerProductsHot'
 import CustomerProductsDiscount from '@/components/pages/CustomerProductsDiscount'
+import CustomerProductsSearch from '@/components/pages/CustomerProductsSearch'
 import CustomerProduct from '@/components/pages/CustomerProduct'
 import CustomerOrders from '@/components/pages/CustomerOrders'
 import CustomerCheck from '@/components/pages/CustomerCheck'
@@ -51,6 +52,11 @@ export default new Router({
           path: 'customer_products_discount', // 清倉55折
           name: 'CustomerProductsDiscount',
           component: CustomerProductsDiscount
+        },
+        {
+          path: 'customer_products_search/:keyword', // 搜尋
+          name: 'CustomerProductsSearch',
+          component: CustomerProductsSearch
         },
         {
           path: 'customer_product/:id', // 單一商品細節
