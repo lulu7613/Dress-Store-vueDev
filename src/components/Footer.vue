@@ -26,7 +26,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" v-if="carts.carts">
             <p class="text-center text-danger" v-if="carts.carts.length === 0">您尚未購買商品</p>
             <table class="table" v-else>
               <tbody>
