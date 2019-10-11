@@ -84,7 +84,7 @@ export default {
 
 <style>
 header {
-  background-image: url(../assets/images/header4.jpg);
+  background-image: url(../assets/img/header4.jpg);
 }
 
 .logo-name {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <img width="100%" class="img-fulid" src="../assets/images/coupon01.png" alt="coupon01" v-if="topic">
-    <img width="100%" class="img-fulid mt-2" src="../assets/images/coupon02.png" alt="coupon02" v-if="hot">
-    <img width="100%" class="img-fulid mt-2" src="../assets/images/coupon03.png" alt="coupon03" v-if="discount">
+    <img width="100%" class="img-fulid" src="../assets/img/coupon01.png" alt="coupon01" v-if="topic">
+    <img width="100%" class="img-fulid mt-2" src="../assets/img/coupon02.png" alt="coupon02" v-if="hot">
+    <img width="100%" class="img-fulid mt-2" src="../assets/img/coupon03.png" alt="coupon03" v-if="discount">
   </div>
 </template>
 
