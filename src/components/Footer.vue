@@ -11,7 +11,6 @@
         <div class="footer-text col-9 text-right align-self-center">
           <!-- <router-link to="/login">管理者模式</router-link> -->
           <a href="#" @click.prevent="goLogin()">管理者模式</a>
-          <br />蔡昀芷製作 / 素材取自網路
         </div>
       </div>
     </footer>
