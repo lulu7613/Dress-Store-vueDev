@@ -34,7 +34,7 @@ export default new Router({
       component: Dashboard,
       children: [
         {
-          path: '', // 全部商品 (index)
+          path: '/', // 全部商品 (index)
           name: 'CustomerProducts',
           component: CustomerProducts
         },
